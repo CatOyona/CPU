@@ -1551,16 +1551,18 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
       <circ-port height="8" pin="100,200" width="8" x="16" y="66"/>
       <circ-anchor facing="east" height="6" width="6" x="57" y="7"/>
     </appear>
+    <wire from="(160,140)" to="(510,140)"/>
     <wire from="(100,200)" to="(180,200)"/>
     <wire from="(100,180)" to="(180,180)"/>
     <wire from="(100,240)" to="(180,240)"/>
-    <comp lib="0" loc="(510,140)" name="Pin">
-      <a name="facing" val="west"/>
-      <a name="output" val="true"/>
+    <comp lib="0" loc="(100,240)" name="Pin">
+      <a name="tristate" val="false"/>
+      <a name="label" val="Fetch"/>
+    </comp>
+    <comp lib="0" loc="(160,140)" name="Pin">
       <a name="width" val="16"/>
       <a name="tristate" val="false"/>
-      <a name="label" val="Addr"/>
-      <a name="labelloc" val="east"/>
+      <a name="label" val="PC"/>
     </comp>
     <comp lib="0" loc="(100,180)" name="Pin">
       <a name="tristate" val="false"/>
@@ -1570,14 +1572,13 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
       <a name="tristate" val="false"/>
       <a name="label" val="Store"/>
     </comp>
-    <comp lib="0" loc="(100,240)" name="Pin">
-      <a name="tristate" val="false"/>
-      <a name="label" val="Fetch"/>
-    </comp>
-    <comp lib="0" loc="(160,140)" name="Pin">
+    <comp lib="0" loc="(510,140)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="output" val="true"/>
       <a name="width" val="16"/>
       <a name="tristate" val="false"/>
-      <a name="label" val="PC"/>
+      <a name="label" val="Addr"/>
+      <a name="labelloc" val="east"/>
     </comp>
   </circuit>
   <circuit name="GetCst">
@@ -2473,15 +2474,44 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
       <circ-port height="8" pin="310,580" width="8" x="46" y="96"/>
       <circ-port height="8" pin="310,600" width="8" x="46" y="116"/>
       <circ-port height="10" pin="850,450" width="10" x="85" y="135"/>
+      <circ-port height="8" pin="620,430" width="8" x="136" y="106"/>
       <circ-anchor facing="east" height="6" width="6" x="47" y="57"/>
     </appear>
+    <wire from="(800,450)" to="(850,450)"/>
     <wire from="(730,470)" to="(730,580)"/>
+    <wire from="(750,450)" to="(800,450)"/>
     <wire from="(310,540)" to="(340,540)"/>
     <wire from="(310,520)" to="(340,520)"/>
-    <wire from="(310,600)" to="(740,600)"/>
-    <wire from="(750,450)" to="(850,450)"/>
     <wire from="(740,470)" to="(740,600)"/>
+    <wire from="(800,380)" to="(800,450)"/>
+    <wire from="(630,410)" to="(660,410)"/>
+    <wire from="(620,430)" to="(660,430)"/>
+    <wire from="(710,420)" to="(710,450)"/>
+    <wire from="(310,600)" to="(740,600)"/>
+    <wire from="(630,380)" to="(630,410)"/>
     <wire from="(310,580)" to="(730,580)"/>
+    <wire from="(700,420)" to="(710,420)"/>
+    <wire from="(710,450)" to="(720,450)"/>
+    <wire from="(630,380)" to="(800,380)"/>
+    <comp lib="0" loc="(310,580)" name="Pin">
+      <a name="tristate" val="false"/>
+      <a name="label" val="Clock"/>
+    </comp>
+    <comp lib="0" loc="(850,450)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="output" val="true"/>
+      <a name="width" val="16"/>
+      <a name="label" val="PC"/>
+      <a name="labelloc" val="east"/>
+    </comp>
+    <comp lib="0" loc="(620,430)" name="Pin">
+      <a name="width" val="16"/>
+      <a name="tristate" val="false"/>
+      <a name="label" val="NextAddr"/>
+    </comp>
+    <comp lib="3" loc="(700,420)" name="Adder">
+      <a name="width" val="16"/>
+    </comp>
     <comp lib="4" loc="(750,450)" name="Register">
       <a name="width" val="16"/>
       <a name="trigger" val="falling"/>
@@ -2494,17 +2524,6 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <comp lib="0" loc="(310,520)" name="Pin">
       <a name="tristate" val="false"/>
       <a name="label" val="Cond"/>
-    </comp>
-    <comp lib="0" loc="(310,580)" name="Pin">
-      <a name="tristate" val="false"/>
-      <a name="label" val="Clock"/>
-    </comp>
-    <comp lib="0" loc="(850,450)" name="Pin">
-      <a name="facing" val="west"/>
-      <a name="output" val="true"/>
-      <a name="width" val="16"/>
-      <a name="label" val="PC"/>
-      <a name="labelloc" val="east"/>
     </comp>
     <comp lib="0" loc="(310,540)" name="Pin">
       <a name="tristate" val="false"/>
