@@ -12,11 +12,11 @@ def binaire(nb, taile = 3):
     return res
 
 def lecture_fichier(fichier):
-    with open('test.txt' , 'r' , encoding='utf-8') as f:
+    with open(fichier, 'r', encoding='utf-8') as f:
         lignes = f.readlines()
-        tab=[]
+        tab = []
         for ligne in lignes:
-            if ligne.strip() !='':
+            if ligne.strip() != '':
                 tab.append(ligne.strip())
         return tab
 
@@ -71,22 +71,22 @@ def convertir_nombre_immediat (tab, chaine):
             chaine[i] += '00000000000000000'
     return chaine
 
-def ecrire (tab):
-    chaine = ""
-    for i in tab :
-        i += '\n'
-        chaine = chaine + i
-    with open("resultat.txt", "w", encoding="utf-8") as f:
-        f.write(chaine)
+def ecrire(tab, fichier):
+    with open(fichier, "w", encoding="utf-8") as f:
+        for ligne in tab:
+            f.write(ligne[::-1] + "\n")
 
 
-#def decodeur_ligne():
-#    if text=='OR':
-chaine_decompose = lecture_ligne(lecture_fichier(0))
-type_ope = retourne_ope(lecture_ligne(lecture_fichier(0)))
-type_binaire = convertir_type_ope(retourne_ope(lecture_ligne(lecture_fichier(0))))
-type_et_ope_binaire = convertir_ope(chaine_decompose, type_binaire)
-ope_immediate = immediate(chaine_decompose, type_et_ope_binaire)
-registre = convertir_registe(chaine_decompose, ope_immediate)
-final = convertir_nombre_immediat(chaine_decompose, registre)
-ecrire(final)
+def traduire(fichier_entree, fichier_sortie):
+    chaine_decompose = lecture_ligne(lecture_fichier(fichier_entree))
+    type_ope = retourne_ope(chaine_decompose)
+    type_binaire = convertir_type_ope(type_ope)
+    type_et_ope_binaire = convertir_ope(chaine_decompose, type_binaire)
+    ope_immediate = immediate(chaine_decompose, type_et_ope_binaire)
+    registre = convertir_registe(chaine_decompose, ope_immediate)
+    final = convertir_nombre_immediat(chaine_decompose, registre)
+    ecrire(final, fichier_sortie)
+
+
+traduire("test1.txt", "resultat1.txt")
+traduire("test2.txt", "resultat2.txt")
