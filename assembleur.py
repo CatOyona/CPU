@@ -1,6 +1,6 @@
-dictionaire = {'UAL' : ['ADD', 'SUB', 'AND', 'OR', 'XOR', 'SL', 'SR', 'ADDi', 'SUBi'], 'MEM' : ['LD',  'ST'], 'CTRL' : ['JMP', 'JEQU', 'JNEQ','JSUP', 'JINF']}
+dictionaire = {'UAL' : ['ADD', 'SUB', 'AND', 'OR', 'XOR', 'SL', 'SR', 'ADDi', 'SUBi'], 'MEM' : ['LD',  'ST'], 'CTRL' : ['JMP', 'JEQU', 'JNEQ','JSUP', 'JINF', 'CALL','RET']}
 equivalence_type = [['UAL', '00'],['MEM', '01'],['CTRL', '11']]
-equivalence_ope = [['ADD', '000'], ['ADDi', '000'], ['SUB', '001'], ['SUBi', '001'],['AND', '010'], ['OR', '011'], ['XOR', '100'], ['SL', '101'], ['SR', '110'], ['LD', '000'], ['ST', '001'], ['JMP', '000'], ['JEQU', '001'], ['JNEQ', '010'], ['JSUP', '011'], ['JINF', '100']]
+equivalence_ope = [['ADD', '000'], ['ADDi', '000'], ['SUB', '001'], ['SUBi', '001'],['AND', '010'], ['OR', '011'], ['XOR', '100'], ['SL', '101'], ['SR', '110'], ['LD', '000'], ['ST', '001'], ['JMP', '000'], ['JEQU', '001'], ['JNEQ', '010'], ['JSUP', '011'], ['JINF', '100'], ['CALL', '101'], ['RET', '110']]
 
 def binaire(nb, taile = 3):
     """
@@ -105,7 +105,9 @@ def convertir_registe(tab, chaine):
 
     for i in range(len(tab)):
         op = tab[i][0]
-        if op in dictionaire['CTRL']:
+        if op in ('CALL', 'RET'):
+            chaine[i] += '000000000'
+        elif op in dictionaire['CTRL']:
             chaine[i] += '000' + binaire(int(tab[i][1][-1])) + binaire(int(tab[i][2][-1]))
         else:
             fin = len(tab[i])
@@ -127,7 +129,9 @@ def convertir_nombre_immediat (tab, chaine):
 
     for i in range(len(tab)):
         op = tab[i][0]
-        if op in dictionaire['CTRL']:
+        if op == 'RET':
+            chaine[i] += '00000000000000000'
+        elif op in dictionaire['CTRL']:
             chaine[i] += binaire(int(tab[i][-1]), 17)          
         elif op in ('ADDi', 'SUBi'):
             chaine[i] += f'0{binaire(int(tab[i][-1]), 16)}'
@@ -173,7 +177,7 @@ def traduire(fichier_entree, fichier_sortie):
     """
 
     chaine_decompose = lecture_ligne(lecture_fichier(fichier_entree))
-    type_ope = retourne_ope(chaine_decompose)
+    type_ope  = retourne_ope(chaine_decompose)
     type_binaire = convertir_type_ope(type_ope)
     type_et_ope_binaire = convertir_ope(chaine_decompose, type_binaire)
     ope_immediate = immediate(chaine_decompose, type_et_ope_binaire)
@@ -186,3 +190,5 @@ traduire("test1.asm", "resultat1.txt")
 traduire("test2.asm", "resultat2.txt")
 traduire("test3.asm", "resultat3.txt")
 traduire("test4.asm", "resultat4.txt")
+traduire("test5.asm", "resultat5.txt")
+traduire("test6.asm", "resultat6.txt")
